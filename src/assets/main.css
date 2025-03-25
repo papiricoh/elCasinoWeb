@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --background_primary: #181518;
+  --background_secondary: #30292F;
+  --background_terciary: #393442;
+
+
+
+  --color_primary: #E1E1E1;
+  --color_secondary: #355691;
+  --color_terciary: #4A589A;
+  --color_enabled: #e1e1e143;
+
+  --bet_plus: #235B14;
+  --bet_minus: #9A1E1E;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Fira Sans", sans-serif;
+  background-color: var(--background_primary);
+  color: var(--color_primary);
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: var(--color_primary);
+}
