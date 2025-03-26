@@ -5,6 +5,7 @@
 <script lang="ts">
 import { BettingEvent } from '@/model/bets/BettingEvent';
 import { defineComponent } from 'vue';
+import { Option } from '@/model/bets/Option';
 
 export default defineComponent({
   name: 'BetsContainer',
@@ -14,7 +15,17 @@ export default defineComponent({
     };
   },
   methods: {
-    
+    getBetStyle(option: Option) {
+      if(option.isMarked) {
+        return "betting_info betting_info_selected";
+      }
+      return "betting_info";
+    },
+
+    markOption(bet: BettingEvent, option: Option) {
+      bet.options.forEach(o => o.isMarked = false);
+      option.isMarked = true;
+    }
   },
   props: {
     bet: BettingEvent
@@ -27,18 +38,22 @@ export default defineComponent({
 
 <template>
     <div class="bet_card">
-        <h3 style="padding: 1rem;">{{bet?.name}}</h3>
-        <div class="betting_grid">
-          <div class="betting_column" v-for="option in bet?.options">
-            <div class="betting_title">
-              <div>{{option.name}}</div>
-            </div>
-            <div class="betting_info">
-              <div>{{option.odds}}</div>
-            </div>
-
+      <div class="bet_card_title">
+        <div class="bet_name">{{bet?.name}}</div>
+        <span>Started at: {{bet?.startDate.toDateString()}}</span>
+        <span>Ends at: {{bet?.endDate.toDateString()}}</span>
+      </div>
+      <div class="betting_grid">
+        <div class="betting_column" v-for="option in bet?.options" @click="markOption(bet!, option)">
+          <div class="betting_title">
+            <div>{{option.name}}</div>
           </div>
+          <div :class="getBetStyle(option)">
+            <div>{{option.odds}}</div>
+          </div>
+
         </div>
+      </div>
     </div>
 </template>
 
@@ -56,6 +71,7 @@ export default defineComponent({
 
 .betting_grid {
   display: flex;
+  height: 100%;
 }
 
 .betting_column {
@@ -63,6 +79,7 @@ export default defineComponent({
   grid-template-rows: 1fr 1fr;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .betting_title {
@@ -72,7 +89,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1.2rem;
+  padding: 1rem 1.6rem;
   box-sizing: border-box;
 }
 
@@ -96,7 +113,7 @@ export default defineComponent({
   border-top: 1px solid var(--background_primary);
   border-right: 1px solid var(--background_primary);
   height: 100%;
-  padding: 1rem 1.2rem;
+  padding: 1rem 1.6rem;
   box-sizing: border-box;
   cursor: pointer;
   transition: .4s;
@@ -110,9 +127,31 @@ export default defineComponent({
   background-color: var(--background_primary);
 }
 
+.betting_info_selected {
+  background-color: var(--background_primary);
+}
+
 .betting_grid > .betting_column:last-child > .betting_info {
   border-bottom-right-radius: 5px;
   border-right: none;
+}
+
+.bet_card_title {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: .4rem;
+}
+
+.bet_name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text_primary);
+}
+
+.bet_card_title > span {
+  font-size: 0.8rem;
+  color: var(--text_secondary);
 }
 
 </style>
