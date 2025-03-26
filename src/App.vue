@@ -117,6 +117,7 @@ header {
   display: flex;
   height: calc(100vh - 2.6rem);
 }
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -130,6 +131,7 @@ header {
   margin-top: 3.6rem;
   height: calc(100vh - 3.6rem);
 }
+
 .nav_container {
   display: flex;
   flex-direction: column;

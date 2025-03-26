@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Utils } from '@/controllers/Utils';
 import BetsContainer from '../components/BetsContainer.vue';
 </script>
 
@@ -9,7 +10,12 @@ export default defineComponent({
   name: 'BetsView',
   data() {
     return {
-      
+      bets: [
+        Utils.generateBettingEvent(),
+        Utils.generateBettingEvent(),
+        Utils.generateBettingEvent(),
+        Utils.generateBettingEvent()
+      ],
     };
   },
   methods: {
@@ -25,7 +31,7 @@ export default defineComponent({
   <div class="bets_view">
     <h1>Current Bets</h1>
     <div class="bets_container">
-      <BetsContainer />
+      <BetsContainer v-for="bet in bets" :bet="bet"/>
 
     </div>
   </div>
